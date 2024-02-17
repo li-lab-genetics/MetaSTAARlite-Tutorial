@@ -61,7 +61,7 @@ R package **FastSparseGRM** provides functions and a pipeline to efficiently cal
 #### Output: a Rdata file of the STAAR null model.
 
 ### Step 2.1: Generate variant summary statistics for individual (single-variant) analysis using MetaSTAARlite Worker
-#### Script: <a href="MetaSTAARlite_worker_Individual_Analysis.r">**MetaSTAARlite_worker_Individual_Analysis.R**</a>
+#### Script: <a href="MetaSTAARlite_worker_Individual_Analysis.r">**MetaSTAARlite_worker_Individual_Analysis.r**</a>
 Generate and store variant summary statistics (*score statistics*) using MetaSTAARlite Worker.
 #### Input: aGDS files and the STAAR null model. For more details, please see the R script.
 #### Output: Rdata files stored in user-specified file directory.
