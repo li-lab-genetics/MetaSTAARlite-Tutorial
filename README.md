@@ -1,5 +1,5 @@
 # MetaSTAARlite-Tutorial
-This is a tutorial for (1) automatically functionally annotating the variants of each participating whole-genome/whole-exome sequencing (WGS/WES) study and integrating the functional annotations with the genotype data using **FAVORannotator**, (2) generating study-specific variant summary statistics of of each participating WGS/WES study using **MetaSTAARlite Worker**, and (3) performing association meta-analysis of WGS/WES studies using **MetaSTAARlite**. The software prerequisites, dependencies and installation can be found in the <a href="https://github.com/xihaoli/MetaSTAARlite">**MetaSTAARlite**</a> package.
+This is a tutorial for (1) automatically functionally annotating the variants of each participating whole-genome/whole-exome sequencing (WGS/WES) study and integrating the functional annotations with the genotype data using **FAVORannotator**, (2) generating study-specific variant summary statistics of of each participating WGS/WES study using **MetaSTAARlite Worker**, and (3) performing association meta-analysis of WGS/WES studies using **MetaSTAARlite**. The software prerequisites, dependencies and installation can be found in the <a href="https://github.com/li-lab-genetics/MetaSTAARlite">**MetaSTAARlite**</a> package.
 
 ## Pre-step of association meta-analysis using MetaSTAARlite (same as STAARpipeline)
 ### Generate study-specific Genomic Data Structure (GDS) file
@@ -20,15 +20,15 @@ The following steps are for the widely used operating system (Ubuntu) on a virtu
 3. Install xsv using Cargo:
  - ```$ cargo install xsv```
 #### Step 1: Generate the variants list to be annotated
-##### Script: <a href="FAVORannotator_csv/Varinfo_gds.R">**Varinfo_gds.R**</a>
-##### Input: GDS files of each chromosome and the FAVOR database information <a href="FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>. For more details, please see the R script.
-##### Output: CSV files of the variants list. For each chromosome, the number of CSV files is listed in <a href="FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>.
+##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/Varinfo_gds.R">**Varinfo_gds.R**</a>
+##### Input: GDS files of each chromosome and the FAVOR database information <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>. For more details, please see the R script.
+##### Output: CSV files of the variants list. For each chromosome, the number of CSV files is listed in <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>.
 
 Note: The physical positions of variants in the GDS file (of each chromosome) should be sorted in ascending order.
 
 #### Step 2: Annotate the variants using the FAVOR database through xsv software
-##### Script: <a href="FAVORannotator_csv/Annotate.R">**Annotate.R**</a> 
-##### Input: CSV files of the variants list to be annotated, the FAVOR database information <a href="FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>,
+##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/Annotate.R">**Annotate.R**</a> 
+##### Input: CSV files of the variants list to be annotated, the FAVOR database information <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>,
 the FAVOR database, and the directory xsv software. For more details, please see the R script.
 ##### Output: CSV files of the annotated variants list. 
 * `Anno_chrXX.csv`: a CSV file containing annotated variants list of chromosome XX. <br>
@@ -36,7 +36,7 @@ the FAVOR database, and the directory xsv software. For more details, please see
 The annotations in this file is a subset of `Anno_chrXX.csv`. <br>
 
 #### Step 3: Generate the annotated GDS (aGDS) file
-##### Script: <a href="FAVORannotator_csv/gds2agds.R">**gds2agds.R**</a> 
+##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/gds2agds.R">**gds2agds.R**</a> 
 ##### Input: GDS files and the CSV files of annotated variants list (`Anno_chrXX.csv` or `Anno_chrXX_STAARpipeline.csv`). For more details, please see the R script.
 ##### Output: aGDS files including both the genotype and annotation information. 
 
