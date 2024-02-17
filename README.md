@@ -61,11 +61,11 @@ R package **FastSparseGRM** provides functions and a pipeline to efficiently cal
 #### Output: a Rdata file of the STAAR null model.
 
 ### Step 2.1: Generate variant summary statistics for individual (single-variant) analysis using MetaSTAARlite Worker
-#### Script: <a href="MetaSTAARlite_worker_Individual_Analysis.R">**MetaSTAARlite_worker_Individual_Analysis.R**</a>
+#### Script: <a href="MetaSTAARlite_worker_Individual_Analysis.r">**MetaSTAARlite_worker_Individual_Analysis.R**</a>
 Generate and store variant summary statistics (*score statistics*) using MetaSTAARlite Worker.
 #### Input: aGDS files and the STAAR null model. For more details, please see the R script.
 #### Output: Rdata files stored in user-specified file directory.
-The number of output files is the summation of the column "individual_analysis_num" for the object in `jobs_num.Rdata`.
+The number of output files is the summation of the column "individual_analysis_num" for the object in <a href="jobs_num.csv">`jobs_num.csv`</a>.
 
 ### Step 2.2: Generate variant summary statistics for gene-centric coding analysis using MetaSTAARlite Worker
 #### Script: <a href="MetaSTAARlite_worker_Gene_Centric_Coding.r">**MetaSTAARlite_worker_Gene_Centric_Coding.r**</a> and <a href="MetaSTAARlite_worker_Gene_Centric_Coding_Long_Masks.r">**MetaSTAARlite_worker_Gene_Centric_Coding_Long_Masks.r**</a>
@@ -95,7 +95,7 @@ Note: For rare variant meta-analysis (e.g. combined MAF < 1%), one can set `cov_
 Perform single-variant meta-analysis for common and low-frequency variants across the genome using the MetaSTAARlite package. 
 #### Input: Variant summary statistics files from Step 2.1 for each participating study. For more details, please see the R script.
 #### Output: Rdata files with the user-defined names.
-The number of output files is the summation of the column "individual_analysis_num" for the object in `jobs_num.Rdata`.
+The number of output files is the summation of the column "individual_analysis_num" for the object in <a href="jobs_num.csv">`jobs_num.csv`</a>.
 
 ### Step 4.1: Gene-centric coding meta-analysis
 #### Script: <a href="MetaSTAARlite_Gene_Centric_Coding.r">**MetaSTAARlite_Gene_Centric_Coding.r**</a> and <a href="MetaSTAARlite_Gene_Centric_Coding_Long_Masks.r">**MetaSTAARlite_Gene_Centric_Coding_Long_Masks.r**</a>
