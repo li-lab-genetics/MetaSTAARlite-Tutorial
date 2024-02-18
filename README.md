@@ -1,7 +1,7 @@
 # MetaSTAARlite-Tutorial
 This is a tutorial for (1) automatically functionally annotating the variants of each participating whole-genome/whole-exome sequencing (WGS/WES) study and integrating the functional annotations with the genotype data using **FAVORannotator**, (2) generating study-specific variant summary statistics of of each participating WGS/WES study using **MetaSTAARlite Worker**, and (3) performing association meta-analysis of WGS/WES studies using **MetaSTAARlite**. The software prerequisites, dependencies and installation can be found in the <a href="https://github.com/li-lab-genetics/MetaSTAARlite">**MetaSTAARlite**</a> package.
 
-## Pre-step of association meta-analysis using MetaSTAARlite (same as STAARpipeline)
+## Pre-step of association meta-analysis using MetaSTAARlite (same as <a href="https://github.com/xihaoli/STAARpipeline-Tutorial">STAARpipeline</a>)
 ### Generate study-specific Genomic Data Structure (GDS) file
 R/Bioconductor package **SeqArray** provides functions to convert the genotype data (in VCF/BCF/PLINK BED/SNPRelate format) to SeqArray GDS format. For more details on usage, please see the R/Bioconductor package <a href="https://bioconductor.org/packages/release/bioc/html/SeqArray.html">**SeqArray**</a> [<a href="https://bioconductor.org/packages/release/bioc/manuals/SeqArray/man/SeqArray.pdf">manual</a>]. A wrapper for the seqVCF2GDS function in the SeqArray package can be found <a href="convertVCF2GDS.R">**here**</a> (**Credit: Michael R. Brown and Jennifer A. Brody**).
 
@@ -65,7 +65,7 @@ R package **FastSparseGRM** provides functions and a pipeline to efficiently cal
 Generate and store variant summary statistics (*score statistics*) using MetaSTAARlite Worker.
 #### Input: aGDS files and the STAAR null model. For more details, please see the R script.
 #### Output: Rdata files stored in user-specified file directory.
-The number of output files is the summation of the column "individual_analysis_num" for the object in <a href="jobs_num.csv">`jobs_num.csv`</a>.
+The number of output files is the summation of the column "individual_analysis_num" for the object in <a href="jobs_num.csv">`jobs_num.csv`</a>, which is 294.
 
 ### Step 2.2: Generate variant summary statistics for gene-centric coding analysis using MetaSTAARlite Worker
 #### Script: <a href="MetaSTAARlite_worker_Gene_Centric_Coding.r">**MetaSTAARlite_worker_Gene_Centric_Coding.r**</a> and <a href="MetaSTAARlite_worker_Gene_Centric_Coding_Long_Masks.r">**MetaSTAARlite_worker_Gene_Centric_Coding_Long_Masks.r**</a>
@@ -95,7 +95,7 @@ Note: For rare variant meta-analysis (e.g. combined MAF < 1%), one can set `cov_
 Perform single-variant meta-analysis for common and low-frequency variants across the genome using the MetaSTAARlite package. 
 #### Input: Variant summary statistics files from Step 2.1 for each participating study. For more details, please see the R script.
 #### Output: Rdata files with the user-defined names.
-The number of output files is the summation of the column "individual_analysis_num" for the object in <a href="jobs_num.csv">`jobs_num.csv`</a>.
+The number of output files is the summation of the column "individual_analysis_num" for the object in <a href="jobs_num.csv">`jobs_num.csv`</a>, which is 294.
 
 ### Step 4.1: Gene-centric coding meta-analysis
 #### Script: <a href="MetaSTAARlite_Gene_Centric_Coding.r">**MetaSTAARlite_Gene_Centric_Coding.r**</a> and <a href="MetaSTAARlite_Gene_Centric_Coding_Long_Masks.r">**MetaSTAARlite_Gene_Centric_Coding_Long_Masks.r**</a>
