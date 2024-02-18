@@ -36,7 +36,7 @@ output_path <- "/path_to_the_output_file/"
 ## output file name
 output_file_name <- "noncoding"
 ## input array id from batch file
-arrayid <- as.numeric(commandArgs(TRUE)[1])
+arrayid_longmask <- as.numeric(commandArgs(TRUE)[1])
 
 ###########################################################
 #           Main Function 
@@ -46,37 +46,12 @@ gene_num_in_array <- 50
 group.num.allchr <- ceiling(table(genes_info[,2])/gene_num_in_array)
 sum(group.num.allchr)
 
-chr <- as.integer(which.max(arrayid <= cumsum(group.num.allchr)))
-group.num <- group.num.allchr[chr]
+## analyze large noncoding masks
+arrayid <- c(21,39,44,45,46,53,55,83,88,103,114,127,135,150,154,155,163,164,166,180,189,195,200,233,280,285,295,313,318,319,324,327,363,44,45,54)
+sub_seq_id <- c(1009,1929,182,214,270,626,741,894,83,51,611,385,771,493,671,702,238,297,388,352,13,303,600,170,554,207,724,755,1048,319,324,44,411,195,236,677)
 
-if (chr == 1){
-  groupid <- arrayid
-}else{
-  groupid <- arrayid - cumsum(group.num.allchr)[chr-1]
-}
-
-genes_info_chr <- genes_info[genes_info[,2]==chr,]
-sub_seq_num <- dim(genes_info_chr)[1]
-
-if(groupid < group.num)
-{
-  sub_seq_id <- ((groupid - 1)*gene_num_in_array + 1):(groupid*gene_num_in_array)
-}else
-{
-  sub_seq_id <- ((groupid - 1)*gene_num_in_array + 1):sub_seq_num
-}
-
-## exclude large noncoding masks
-jobid_exclude <- c(21,39,44,45,46,53,55,83,88,103,114,127,135,150,154,155,163,164,166,180,189,195,200,233,280,285,295,313,318,319,324,327,363,44,45,54)
-sub_seq_id_exclude <- c(1009,1929,182,214,270,626,741,894,83,51,611,385,771,493,671,702,238,297,388,352,13,303,600,170,554,207,724,755,1048,319,324,44,411,195,236,677)
-
-for(i in 1:length(jobid_exclude))
-{
-  if(arrayid==jobid_exclude[i])
-  {
-    sub_seq_id <- setdiff(sub_seq_id,sub_seq_id_exclude[i])
-  }
-}
+region_spec <- data.frame(arrayid,sub_seq_id) 
+sub_seq_id <- ((arrayid_longmask-1)*5+1):min(arrayid_longmask*5,length(arrayid))
 
 results_noncoding <- c()
 
@@ -88,7 +63,17 @@ noncoding_cov_list <- sapply(cov.file.path, function(x) mget(load(x)), simplify 
 for(kk in sub_seq_id)
 {
   print(kk)
-  gene_name <- genes_info_chr[kk,1]
+  arrayid <- region_spec$arrayid[kk]
+  sub_id <- region_spec$sub_seq_id[kk]
+  
+  chr <- which.max(arrayid <= cumsum(group.num.allchr))
+  
+  ## aGDS file
+  agds.path <- agds_dir[chr]
+  genofile <- seqOpen(agds.path)
+  
+  genes_info_chr <- genes_info[genes_info[,2]==chr,]
+  gene_name <- genes_info_chr[sub_id,1]
   noncoding_sumstat_gene_list <- lapply(sumstat.file.path, function(x) {
     noncoding_sumstat_list[[paste0(x,".noncoding_sumstat")]][[gene_name]]
   })
@@ -105,5 +90,5 @@ for(kk in sub_seq_id)
   results_noncoding <- append(results_noncoding,results)
 }
 
-save(results_noncoding,file=paste0(output_path,output_file_name,"_",arrayid,".Rdata"))
+save(results_noncoding,file=paste0(output_path,output_file_name,"_",arrayid_longmask+379,".Rdata"))
 

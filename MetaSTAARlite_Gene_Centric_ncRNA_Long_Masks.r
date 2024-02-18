@@ -35,67 +35,19 @@ Annotation_name <- c("CADD","LINSIGHT","FATHMM.XF","aPC.EpigeneticActive","aPC.E
 output_path <- "/path_to_the_output_file/"
 ## output file name
 output_file_name <- "ncRNA"
-## input array id from batch file
-arrayid <- as.numeric(commandArgs(TRUE)[1])
 
 ###########################################################
 #           Main Function 
 ###########################################################
-## gene number in job
+## analyze large ncRNA masks
+arrayid <- c(117,218,220,220,221,156,219)
+sub_seq_id <- c(53,19,208,274,311,41,103)
+
+region_spec <- data.frame(arrayid,sub_seq_id)
+
 gene_num_in_array <- 100
 group.num.allchr <- ceiling(table(ncRNA_gene[,1])/gene_num_in_array)
 sum(group.num.allchr)
-
-chr <- as.integer(which.max(arrayid <= cumsum(group.num.allchr)))
-group.num <- group.num.allchr[chr]
-
-if (chr == 1){
-  groupid <- arrayid
-}else{
-  groupid <- arrayid - cumsum(group.num.allchr)[chr-1]
-}
-
-ncRNA_gene_chr <- ncRNA_gene[ncRNA_gene[,1]==chr,]
-sub_seq_num <- dim(ncRNA_gene_chr)[1]
-
-if(groupid < group.num)
-{
-  sub_seq_id <- ((groupid - 1)*gene_num_in_array + 1):(groupid*gene_num_in_array)
-}else
-{
-  sub_seq_id <- ((groupid - 1)*gene_num_in_array + 1):sub_seq_num
-}
-
-## exclude large ncRNA masks
-if(arrayid==117)
-{
-  sub_seq_id <- setdiff(sub_seq_id,53)
-}
-
-if(arrayid==218)
-{
-  sub_seq_id <- setdiff(sub_seq_id,19)
-}
-
-if(arrayid==220)
-{
-  sub_seq_id <- setdiff(sub_seq_id,c(208,274))
-}
-
-if(arrayid==221)
-{
-  sub_seq_id <- setdiff(sub_seq_id,311)
-}
-
-if(arrayid==156)
-{
-  sub_seq_id <- setdiff(sub_seq_id,41)
-}
-
-if(arrayid==219)
-{
-  sub_seq_id <- setdiff(sub_seq_id,103)
-}
 
 results_ncRNA <- c()
 
@@ -104,10 +56,19 @@ cov.file.path <- paste0(file.dir,file.prefix,"_cov_",arrayid,".Rdata")
 ncRNA_sumstat_list <- sapply(sumstat.file.path, function(x) mget(load(x)), simplify = TRUE)
 ncRNA_cov_list <- sapply(cov.file.path, function(x) mget(load(x)), simplify = TRUE)
 
-for(kk in sub_seq_id)
+for(kk in 1:dim(region_spec)[1])
 {
-  print(kk)
-  gene_name <- ncRNA_gene_chr[kk,2]
+  arrayid <- region_spec$arrayid[kk]
+  sub_seq_id <- region_spec$sub_seq_id[kk]
+  
+  chr <- which.max(arrayid <= cumsum(group.num.allchr))
+  ncRNA_gene_chr <- ncRNA_gene[ncRNA_gene[,1]==chr,]
+  
+  ## aGDS file
+  agds.path <- agds_dir[chr]
+  genofile <- seqOpen(agds.path)
+  
+  gene_name <- ncRNA_gene_chr[sub_seq_id,2]
   ncRNA_sumstat_gene_list <- lapply(sumstat.file.path, function(x) {
     ncRNA_sumstat_list[[paste0(x,".ncRNA_sumstat")]][[gene_name]]
   })
@@ -125,5 +86,5 @@ for(kk in sub_seq_id)
   results_ncRNA <- rbind(results_ncRNA,results)
 }
 
-save(results_ncRNA,file=paste0(output_path,output_file_name,"_",arrayid,".Rdata"))
+save(results_ncRNA,file=paste0(output_path,output_file_name,"_",223,".Rdata"))
 
