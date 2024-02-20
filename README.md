@@ -27,7 +27,7 @@ The following steps are for the widely used operating system (Ubuntu) on a virtu
 Note: The physical positions of variants in the GDS file (of each chromosome) should be sorted in ascending order.
 
 #### Step 2: Annotate the variants using the FAVOR database through xsv software
-##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/Annotate.R">**Annotate.R**</a> 
+##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/Annotate.R">**Annotate.R**</a>
 ##### Input: CSV files of the variants list to be annotated, the FAVOR database information <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>,
 the FAVOR database, and the directory xsv software. For more details, please see the R script.
 ##### Output: CSV files of the annotated variants list. 
@@ -36,7 +36,7 @@ the FAVOR database, and the directory xsv software. For more details, please see
 The annotations in this file is a subset of `Anno_chrXX.csv`. <br>
 
 #### Step 3: Generate the annotated GDS (aGDS) file
-##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/gds2agds.R">**gds2agds.R**</a> 
+##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/gds2agds.R">**gds2agds.R**</a>
 ##### Input: GDS files and the CSV files of annotated variants list (`Anno_chrXX.csv` or `Anno_chrXX_STAARpipeline.csv`). For more details, please see the R script.
 ##### Output: aGDS files including both the genotype and annotation information. 
 
@@ -102,7 +102,7 @@ The number of output files is the summation of the column "individual_analysis_n
 Perform gene-centric meta-analysis for coding rare variants using the MetaSTAARlite package. The gene-centric coding meta-analysis provides five functional categories to aggregate coding rare variants of each protein-coding gene: (1) putative loss of function (stop gain, stop loss and splice) RVs, (2) missense RVs, (3) disruptive missense RVs, (4) putative loss of function and disruptive missense RVs, and (5) synonymous RVs. <br>
 * `MetaSTAARlite_Gene_Centric_Coding.r` performs gene-centric coding meta-analysis for all protein-coding genes across the genome. There are 379 jobs using this script. <br>
 * `MetaSTAARlite_Gene_Centric_Coding_Long_Masks.r` performs gene-centric coding meta-analysis for some specific long masks, and might require larger memory compared to `MetaSTAARlite_Gene_Centric_Coding.R`. There are 2 jobs using this script.
-#### Input: aGDS files and variant summary statistics files from both Step 2.2 for each participating study. For more details, please see the R scripts.
+#### Input: aGDS files and variant summary statistics files from Step 2.2 for each participating study. For more details, please see the R scripts.
 #### Output: 381 Rdata files with the user-defined names. For more details, please see the R scripts.
 
 ### Step 4.2: Gene-centric noncoding meta-analysis
@@ -112,8 +112,68 @@ Perform gene-centric meta-analysis for noncoding rare variants using the MetaSTA
 * `MetaSTAARlite_Gene_Centric_Coding_Long_Masks.r` performs gene-centric noncoding meta-analysis for some specific long masks, and might require larger memory compared to `MetaSTAARlite_Gene_Centric_Coding.r`. There are 8 jobs using this script. <br>
 * `MetaSTAARlite_Gene_Centric_ncRNA.r` performs gene-centric noncoding meta-analysis for ncRNA genes across the genome. There are 222 jobs using this script. <br> 
 * `MetaSTAARlite_Gene_Centric_ncRNA_Long_Masks.r` performs gene-centric noncoding meta-analysis for some specific long masks, and might require larger memory compared to `MetaSTAARlite_Gene_Centric_ncRNA`. There is 1 job using this script. 
-#### Input: aGDS files and variant summary statistics files from both Step 2.3 for each participating study. For more details, please see the R scripts.
+#### Input: aGDS files and variant summary statistics files from Step 2.3 for each participating study. For more details, please see the R scripts.
 #### Output: 387 Rdata files with the user-defined names for protein-coding genes and 223 Rdata files with the user-defined names for ncRNA genes. For more details, please see the R scripts.
+
+## Summarization and visualization of association analysis results using MetaSTAARlite
+### Step 5.0 (Optional): Select independent variants from a known variants list to be used in conditional analysis
+An example file for a list of known total cholesterol associated variants (4-column format) in the *LDLR* locus is given in <a href="known_loci_LDLR.csv">`known_loci_LDLR.csv`</a>.
+
+Note: It is typically assumed that variants in `known_loci` for conditional analysis are present in each participating study of the meta-analysis, which implies that the MAFs for these variants would not be extremely rare.
+
+### Step 5.1.1: Summarize individual (single-variant) meta-analysis results
+#### Script: <a href="MetaSTAARliteSummary_Individual_Analysis.r">**MetaSTAARliteSummary_Individual_Analysis.r**</a>
+Summarize single-variant meta-analysis results.
+#### Input: Individual analysis results generated by MetaSTAARlite. For more details, please see the R script.
+#### Output: The summary includes the Manhattan plot and Q-Q plot.
+
+### Step 5.1.2: Generate variant summary statistics for individual (single-variant) conditional analysis using MetaSTAARlite Worker
+#### Script: <a href="MetaSTAARlite_worker_Individual_Analysis_cond.r">**MetaSTAARlite_worker_Individual_Analysis_cond.r**</a>
+Generate and store variant summary statistics (*score statistics* and *conditional LD matrix*) using MetaSTAARlite Worker.
+#### Input: aGDS files, STAAR null model and a list of known variants. For more details, please see the R script.
+#### Output: Rdata files stored in user-specified file directory.
+
+### Step 5.1.3: Conditional individual (single-variant) meta-analysis
+#### Script: <a href="MetaSTAARlite_Individual_Analysis_cond.r">**MetaSTAARlite_Individual_Analysis_cond.r**</a>
+Perform conditional meta-analysis of unconditionally significant variants by adjusting a list of known variants.
+#### Input: Variant summary statistics files from Step 5.1.2 for each participating study and (significant)individual analysis results from Step 5.1.1. For more details, please see the R script.
+#### Output: Conditional p-values of unconditionally significant variants.
+
+### Step 5.2.1: Summarize gene-centric coding meta-analysis results
+#### Script: <a href="MetaSTAARliteSummary_Gene_Centric_Coding.r">**MetaSTAARliteSummary_Gene_Centric_Coding.r**</a>
+Summarize gene-centric coding meta-analysis results.
+#### Input: Gene-centric coding analysis results generated by MetaSTAARlite. For more details, please see the R script.
+#### Output: The summary includes the Manhattan plot, Q-Q plot.
+
+### Step 5.2.2: Generate variant summary statistics for gene-centric coding conditional analysis using MetaSTAARlite Worker
+#### Script: <a href="MetaSTAARlite_worker_Gene_Centric_Coding_cond.r">**MetaSTAARlite_worker_Gene_Centric_Coding_cond.r**</a>
+Generate and store variant summary statistics (*score statistics*, *functional annotations* and *sparse weighted LD matrices*) for coding rare variants using MetaSTAARlite Worker.
+#### Input: aGDS files, STAAR null model and a list of known variants. For more details, please see the R script.
+#### Output: Rdata files stored in user-specified file directory.
+
+### Step 5.2.3: Conditional gene-centric coding meta-analysis
+#### Script: <a href="MetaSTAARlite_Gene_Centric_Coding_cond.r">**MetaSTAARlite_Gene_Centric_Coding_cond.r**</a>
+Perform conditional analysis of unconditionally significant coding masks by adjusting a list of known variants.
+#### Input: Variant summary statistics files from Step 5.2.2 for each participating study and (significant) gene-centric coding analysis results from Step 5.2.1. For more details, please see the R script.
+#### Output: Conditional p-values of unconditionally significant coding masks.
+
+### Step 5.3.1: Summarize gene-centric noncoding meta-analysis results
+#### Script: <a href="MetaSTAARliteSummary_Gene_Centric_Noncoding.r">**MetaSTAARliteSummary_Gene_Centric_Noncoding.r**</a>
+Summarize gene-centric noncoding meta-analysis results.
+#### Input: Gene-centric noncoding analysis results generated by MetaSTAARlite. For more details, please see the R script.
+#### Output: The summary includes the Manhattan plots and Q-Q plots.
+
+### Step 5.3.2: Generate variant summary statistics for gene-centric noncoding conditional analysis using MetaSTAARlite Worker
+#### Script: <a href="MetaSTAARlite_worker_Gene_Centric_Noncoding_cond.r">**MetaSTAARlite_worker_Gene_Centric_Noncoding_cond.r**</a> and <a href="MetaSTAARlite_worker_Gene_Centric_ncRNA_cond.r">**MetaSTAARlite_worker_Gene_Centric_ncRNA_cond.r**</a>
+Generate and store variant summary statistics (*score statistics*, *functional annotations* and *sparse weighted LD matrices*) for noncoding rare variants using MetaSTAARlite Worker.
+#### Input: aGDS files, STAAR null model and a list of known variants. For more details, please see the R scripts.
+#### Output: Rdata files stored in user-specified file directory.
+
+### Step 5.3.3: Conditional gene-centric noncoding meta-analysis
+#### Script: <a href="MetaSTAARlite_Gene_Centric_Noncoding_cond.r">**MetaSTAARlite_Gene_Centric_Noncoding_cond.r**</a> and <a href="MetaSTAARlite_Gene_Centric_ncRNA_cond.r">**MetaSTAARlite_Gene_Centric_ncRNA_cond.r**</a>
+Perform conditional analysis of unconditionally significant noncoding masks by adjusting a list of known variants.
+#### Input: Variant summary statistics files from Step 5.3.2 for each participating study and (significant) gene-centric noncoding analysis results from Step 5.3.1. For more details, please see the R scripts.
+#### Output: Conditional p-values of unconditionally significant noncoding masks.
 
 ### An example of batch job submission scripts for these analyses can be found <a href="/batch jobs">**here**</a>.
 
