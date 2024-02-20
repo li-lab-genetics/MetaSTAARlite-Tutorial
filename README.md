@@ -116,7 +116,7 @@ Perform gene-centric meta-analysis for noncoding rare variants using the MetaSTA
 #### Output: 387 Rdata files with the user-defined names for protein-coding genes and 223 Rdata files with the user-defined names for ncRNA genes. For more details, please see the R scripts.
 
 ## Summarization and visualization of association analysis results using MetaSTAARlite
-### Step 5.0 (Optional): Select independent variants from a known variants list to be used in conditional analysis
+### Step 5.0 (Optional): Select independent variants from a known variants list to be used in conditional meta-analysis
 An example file for a list of known total cholesterol associated variants (4-column format) in the *LDLR* locus is given in <a href="known_loci_LDLR.csv">`known_loci_LDLR.csv`</a>.
 
 Note: It is typically assumed that variants in `known_loci` for conditional analysis are present in each participating study of the meta-analysis, which implies that the MAFs for these variants would not be extremely rare.
