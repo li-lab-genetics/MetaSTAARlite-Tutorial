@@ -87,5 +87,3 @@ for(kk in sub_seq_id)
 save(noncoding_sumstat,file=paste0(output_path,output_file_name,"_sumstat_",arrayid_longmask+379,".Rdata"),compress = "xz")
 save(noncoding_cov,file=paste0(output_path,output_file_name,"_cov_",arrayid_longmask+379,".Rdata"),compress = "xz")
 
-seqClose(genofile)
-

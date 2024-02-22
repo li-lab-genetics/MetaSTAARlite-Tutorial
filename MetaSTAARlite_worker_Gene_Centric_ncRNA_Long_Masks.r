@@ -82,5 +82,3 @@ for(kk in 1:dim(region_spec)[1])
 save(ncRNA_sumstat,file=paste0(output_path,output_file_name,"_sumstat_",223,".Rdata"),compress = "xz")
 save(ncRNA_cov,file=paste0(output_path,output_file_name,"_cov_",223,".Rdata"),compress = "xz")
 
-seqClose(genofile)
-
