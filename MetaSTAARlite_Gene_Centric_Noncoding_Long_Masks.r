@@ -90,6 +90,7 @@ for(kk in sub_seq_id)
                                      check_qc_label=TRUE,variant_type=variant_type,
                                      Use_annotation_weights=Use_annotation_weights,Annotation_name=Annotation_name)
   results_noncoding <- append(results_noncoding,results)
+  seqClose(genofile)
 }
 
 save(results_noncoding,file=paste0(output_path,output_file_name,"_",arrayid_longmask+379,".Rdata"))
