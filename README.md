@@ -129,7 +129,7 @@ Summarize single-variant meta-analysis results.
 
 ### Step 5.1.2: Generate variant summary statistics for individual (single-variant) conditional analysis using MetaSTAARlite Worker
 #### Script: <a href="MetaSTAARlite_worker_Individual_Analysis_cond.r">**MetaSTAARlite_worker_Individual_Analysis_cond.r**</a>
-Generate and store variant summary statistics (*score statistics* and *conditional LD matrix*) using MetaSTAARlite Worker.
+Generate and store variant summary statistics (*score statistics* and *conditional LD matrices*) using MetaSTAARlite Worker.
 #### Input: aGDS files, STAAR null model and a list of known variants. For more details, please see the R script.
 #### Output: Rdata files stored in user-specified file directory.
 
@@ -147,7 +147,7 @@ Summarize gene-centric coding meta-analysis results.
 
 ### Step 5.2.2: Generate variant summary statistics for gene-centric coding conditional analysis using MetaSTAARlite Worker
 #### Script: <a href="MetaSTAARlite_worker_Gene_Centric_Coding_cond.r">**MetaSTAARlite_worker_Gene_Centric_Coding_cond.r**</a>
-Generate and store variant summary statistics (*score statistics*, *functional annotations* and *sparse weighted LD matrices*) for coding rare variants using MetaSTAARlite Worker.
+Generate and store variant summary statistics (*score statistics*, *functional annotations*, *sparse weighted LD matrices* and *conditional LD matrices*) for coding rare variants using MetaSTAARlite Worker.
 #### Input: aGDS files, STAAR null model and a list of known variants. For more details, please see the R script.
 #### Output: Rdata files stored in user-specified file directory.
 
@@ -165,7 +165,7 @@ Summarize gene-centric noncoding meta-analysis results.
 
 ### Step 5.3.2: Generate variant summary statistics for gene-centric noncoding conditional analysis using MetaSTAARlite Worker
 #### Script: <a href="MetaSTAARlite_worker_Gene_Centric_Noncoding_cond.r">**MetaSTAARlite_worker_Gene_Centric_Noncoding_cond.r**</a> and <a href="MetaSTAARlite_worker_Gene_Centric_ncRNA_cond.r">**MetaSTAARlite_worker_Gene_Centric_ncRNA_cond.r**</a>
-Generate and store variant summary statistics (*score statistics*, *functional annotations* and *sparse weighted LD matrices*) for noncoding rare variants using MetaSTAARlite Worker.
+Generate and store variant summary statistics (*score statistics*, *functional annotations*, *sparse weighted LD matrices* and *conditional LD matrices*) for noncoding rare variants using MetaSTAARlite Worker.
 #### Input: aGDS files, STAAR null model and a list of known variants. For more details, please see the R scripts.
 #### Output: Rdata files stored in user-specified file directory.
 
