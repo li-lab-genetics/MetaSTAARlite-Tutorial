@@ -13,6 +13,8 @@ library(MetaSTAARlite)
 ###########################################################
 #           User Input
 ###########################################################
+## aGDS directory
+agds_dir <- "/path_to_aGDS_file/"
 ## Directories of the study-specific summary statistics file folders
 file.dir <- c("/path_to_JHS_noncoding/",
               "/path_to_MESA_noncoding/")
