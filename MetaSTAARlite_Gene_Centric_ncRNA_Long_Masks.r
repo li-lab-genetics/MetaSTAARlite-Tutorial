@@ -63,11 +63,6 @@ for(kk in 1:dim(region_spec)[1])
   
   chr <- which.max(arrayid <= cumsum(group.num.allchr))
   ncRNA_gene_chr <- ncRNA_gene[ncRNA_gene[,1]==chr,]
-  
-  ## aGDS file
-  agds.path <- agds_dir[chr]
-  genofile <- seqOpen(agds.path)
-  
   gene_name <- ncRNA_gene_chr[sub_seq_id,2]
   ncRNA_sumstat_gene_list <- lapply(sumstat.file.path, function(x) {
     ncRNA_sumstat_list[[paste0(x,".ncRNA_sumstat")]][[gene_name]]

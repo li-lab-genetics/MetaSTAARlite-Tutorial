@@ -69,11 +69,6 @@ for(kk in sub_seq_id)
   sub_id <- region_spec$sub_seq_id[kk]
   
   chr <- which.max(arrayid <= cumsum(group.num.allchr))
-  
-  ## aGDS file
-  agds.path <- agds_dir[chr]
-  genofile <- seqOpen(agds.path)
-  
   genes_info_chr <- genes_info[genes_info[,2]==chr,]
   gene_name <- genes_info_chr[sub_id,1]
   coding_sumstat_gene_list <- lapply(sumstat.file.path, function(x) {

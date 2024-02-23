@@ -13,8 +13,6 @@ library(MetaSTAARlite)
 ###########################################################
 #           User Input
 ###########################################################
-## aGDS directory
-agds_dir <- "/path_to_aGDS_file/"
 ## Directories of the study-specific summary statistics file folders
 file.dir <- c("/path_to_JHS_noncoding/",
               "/path_to_MESA_noncoding/")
@@ -69,11 +67,6 @@ for(kk in sub_seq_id)
   sub_id <- region_spec$sub_seq_id[kk]
   
   chr <- which.max(arrayid <= cumsum(group.num.allchr))
-  
-  ## aGDS file
-  agds.path <- agds_dir[chr]
-  genofile <- seqOpen(agds.path)
-  
   genes_info_chr <- genes_info[genes_info[,2]==chr,]
   gene_name <- genes_info_chr[sub_id,1]
   noncoding_sumstat_gene_list <- lapply(sumstat.file.path, function(x) {
@@ -90,7 +83,6 @@ for(kk in sub_seq_id)
                                      check_qc_label=TRUE,variant_type=variant_type,
                                      Use_annotation_weights=Use_annotation_weights,Annotation_name=Annotation_name)
   results_noncoding <- append(results_noncoding,results)
-  seqClose(genofile)
 }
 
 save(results_noncoding,file=paste0(output_path,output_file_name,"_",arrayid_longmask+379,".Rdata"))
