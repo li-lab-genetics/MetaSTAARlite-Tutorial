@@ -57,8 +57,8 @@ genes <- genes_info
 
 results_coding <- c()
 
-sumstat.file.path <- paste0(file.dir,file.prefix,"_sumstat_",arrayid,".Rdata")
-cov.file.path <- paste0(file.dir,file.prefix,"_cov_",arrayid,".Rdata")
+sumstat.file.path <- paste0(file.dir,file.prefix,"_sumstat_",arrayid_longmask+379,".Rdata")
+cov.file.path <- paste0(file.dir,file.prefix,"_cov_",arrayid_longmask+379,".Rdata")
 coding_sumstat_list <- sapply(sumstat.file.path, function(x) mget(load(x)), simplify = TRUE)
 coding_cov_list <- sapply(cov.file.path, function(x) mget(load(x)), simplify = TRUE)
 

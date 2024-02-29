@@ -51,8 +51,8 @@ sum(group.num.allchr)
 
 results_ncRNA <- c()
 
-sumstat.file.path <- paste0(file.dir,file.prefix,"_sumstat_",arrayid,".Rdata")
-cov.file.path <- paste0(file.dir,file.prefix,"_cov_",arrayid,".Rdata")
+sumstat.file.path <- paste0(file.dir,file.prefix,"_sumstat_",223,".Rdata")
+cov.file.path <- paste0(file.dir,file.prefix,"_cov_",223,".Rdata")
 ncRNA_sumstat_list <- sapply(sumstat.file.path, function(x) mget(load(x)), simplify = TRUE)
 ncRNA_cov_list <- sapply(cov.file.path, function(x) mget(load(x)), simplify = TRUE)
 
