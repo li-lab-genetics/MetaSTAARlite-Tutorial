@@ -5,7 +5,9 @@ This is a tutorial for (1) automatically functionally annotating the variants of
 ### Generate study-specific Genomic Data Structure (GDS) file
 R/Bioconductor package **SeqArray** provides functions to convert the genotype data (in VCF/BCF/PLINK BED/SNPRelate format) to SeqArray GDS format. For more details on usage, please see the R/Bioconductor package <a href="https://bioconductor.org/packages/release/bioc/html/SeqArray.html">**SeqArray**</a> [<a href="https://bioconductor.org/packages/release/bioc/manuals/SeqArray/man/SeqArray.pdf">manual</a>]. A wrapper for the seqVCF2GDS function in the SeqArray package can be found <a href="convertVCF2GDS.R">**here**</a> (**Credit: Michael R. Brown and Jennifer A. Brody**).
 
-Note: After the (study-specific) GDS file is generated, there is supposed to be a channel in the GDS file (default is `annotation/filter`) where all variants passing the quality control (QC) should be labeled as `"PASS"`. If there is no such channel for a given post-QC GDS file (where all variants in the GDS file are pass variants), one can create a new channel in the GDS file by setting the value of all variants as `"PASS"`. An example script can be found <a href="Add_QC_label.R">**here**</a>. Then, in all scripts of MetaSTAARlite, `QC_label <- "annotation/filter"` should be updated to `QC_label <- "annotation/info/QC_label"`.
+Note 1: As a file integrity check, it is expected that variant in the GDS file can be **uniquely identified** based on its CHR-POS-REF-ALT combination. That is, there shouldn't be two variants in the GDS file with identical CHR-POS-REF-ALT records.
+
+Note 2: After the (study-specific) GDS file is generated, there is supposed to be a channel in the GDS file (default is `annotation/filter`) where all variants passing the quality control (QC) should be labeled as `"PASS"`. If there is no such channel for a given post-QC GDS file (where all variants in the GDS file are pass variants), one can create a new channel in the GDS file by setting the value of all variants as `"PASS"`. An example script can be found <a href="Add_QC_label.R">**here**</a>. Then, in all scripts of MetaSTAARlite, `QC_label <- "annotation/filter"` should be updated to `QC_label <- "annotation/info/QC_label"`.
 
 ### Generate study-specific annotated GDS (aGDS) file using FAVORannotator
 #### Prerequisites:
@@ -115,7 +117,7 @@ Perform gene-centric meta-analysis for noncoding rare variants using the MetaSTA
 #### Input: aGDS files and variant summary statistics files from Step 2.3 for each participating study. For more details, please see the R scripts.
 #### Output: 387 Rdata files with the user-defined names for protein-coding genes and 223 Rdata files with the user-defined names for ncRNA genes. For more details, please see the R scripts.
 
-## Summarization and visualization of association analysis results using MetaSTAARlite
+## Summarization and visualization of association analysis results using MetaSTAARliteSummary
 ### Step 5.0 (Optional): Select independent variants from a known variants list to be used in conditional meta-analysis
 An example file for a list of known total cholesterol associated variants (4-column format) in the *LDLR* locus is given in <a href="known_loci_LDLR.csv">`known_loci_LDLR.csv`</a>.
 
