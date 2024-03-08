@@ -22,8 +22,8 @@ sample.sizes <- c(2923,4791)
 
 individual_results <- read.csv("/path_to_the_file/individual_results.csv")
 individual_results <- individual_results[individual_results$CHR == 19 & 
-                                           individual_results$POS >= 10500001 & 
-                                           individual_results$POS <= 11500000, c(1:4)]
+                                         individual_results$POS >= 10500001 & 
+                                         individual_results$POS <= 11500000, c(1:4)]
 
 ## output path
 output_path <- "/path_to_the_output_file/"
