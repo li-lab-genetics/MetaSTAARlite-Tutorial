@@ -43,6 +43,5 @@ results_individual_analysis_cond <- individual_analysis_MetaSTAARlite_cond(indiv
                                                                            covcond.list=individual_analysis_cov_cond,
                                                                            mac_cutoff=20,check_qc_label=TRUE)
 
-row.names(results_individual_analysis_cond) <- NULL
 save(results_individual_analysis_cond,file=paste0(output_path,output_file_name,".Rdata"))
 

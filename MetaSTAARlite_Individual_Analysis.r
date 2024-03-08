@@ -37,6 +37,5 @@ results_individual_analysis <- individual_analysis_MetaSTAARlite(sample.sizes=sa
                                                                  sumstat.list=individual_analysis_sumstat_list,
                                                                  mac_cutoff=20,check_qc_label=TRUE)
 
-row.names(results_individual_analysis) <- NULL
 save(results_individual_analysis,file=paste0(output_path,output_file_name,"_",arrayid,".Rdata"))
 
