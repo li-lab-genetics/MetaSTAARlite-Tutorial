@@ -11,21 +11,20 @@ library(MetaSTAARlite)
 ###########################################################
 #           User Input
 ###########################################################
+## Number of jobs for each chromosome
+jobs_num <- read.csv("/path_to_the_file/jobs_num.csv")
 ## results path
 input_path <- "/path_to_the_results_file/"
 output_path <- input_path
-## number of jobs
-gene_centric_coding_jobs_num <- 381
 ## results name
-gene_centric_results_name <- "coding"
+individual_results_name <- "individual_analysis"
 
 ## alpha level
-alpha <- 5E-07
+alpha <- 5E-08
 
 ###########################################################
-#           Main Function
+#           Main Function 
 ###########################################################
-Gene_Centric_Coding_Results_Summary_meta(gene_centric_coding_jobs_num=gene_centric_coding_jobs_num,
-                                         input_path=input_path,output_path=output_path,
-                                         gene_centric_results_name=gene_centric_results_name,
+Individual_Analysis_Results_Summary_meta(jobs_num=jobs_num,input_path=input_path,output_path=output_path,
+                                         individual_results_name=individual_results_name,
                                          alpha=alpha,manhattan_plot=TRUE,QQ_plot=TRUE)

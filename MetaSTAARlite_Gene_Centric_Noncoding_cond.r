@@ -2,9 +2,6 @@ rm(list=ls())
 gc()
 
 ## load required packages
-library(gdsfmt)
-library(SeqArray)
-library(SeqVarTools)
 library(STAAR)
 library(STAARpipeline)
 library(MetaSTAAR)
