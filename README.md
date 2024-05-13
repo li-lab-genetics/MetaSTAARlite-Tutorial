@@ -27,7 +27,6 @@ The following steps are for the widely used operating system (Ubuntu) on a virtu
 ##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/Varinfo_gds.R">**Varinfo_gds.R**</a>
 ##### Input: GDS files of each chromosome and the FAVOR database information <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>. For more details, please see the R script.
 ##### Output: CSV files of the variants list. For each chromosome, the number of CSV files is listed in <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/FAVORdatabase_chrsplit.csv">**FAVORdatabase_chrsplit.csv**</a>.
-
 Note: The physical positions of variants in the GDS file (of each chromosome) should be sorted in ascending order.
 
 #### Step 2: Annotate the variants using the FAVOR database through xsv software
@@ -43,7 +42,6 @@ The annotations in this file is a subset of `Anno_chrXX.csv`. <br>
 ##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/gds2agds.R">**gds2agds.R**</a>
 ##### Input: GDS files and the CSV files of annotated variants list (`Anno_chrXX.csv` or `Anno_chrXX_STAARpipeline.csv`). For more details, please see the R script.
 ##### Output: aGDS files including both the genotype and annotation information. 
-
 Note: FAVORannotator also supports the database in SQL format. Please see the <a href="https://github.com/zhouhufeng/FAVORannotator">**FAVORannotator** tutorial</a> for detailed usage of **FAVORannotator** (SQL version).
 
 ### Generate study-specific sparse Genetic Relatedness Matrix (GRM)
@@ -78,7 +76,6 @@ Generate and store variant summary statistics (*score statistics*, *functional a
 * `MetaSTAARlite_worker_Gene_Centric_Coding_Long_Masks.r` generates and stores variant summary statistics for some specific long masks, and might require larger memory compared to `MetaSTAARlite_worker_Gene_Centric_Coding.r`. There are 2 jobs using this script.
 #### Input: aGDS files and the STAAR null model. For more details, please see the R scripts.
 #### Output: 381 * 2 = 762 Rdata files with the user-defined names for protein-coding genes.
-
 Note: For rare variant meta-analysis (e.g. combined MAF < 1%), one can set `cov_maf_cutoff = 0.05` (by default) when generating sparse weighted LD matrices for each study.
 
 ### Step 2.3: Generate variant summary statistics for gene-centric noncoding analysis using MetaSTAARlite Worker
@@ -90,15 +87,13 @@ Generate and store variant summary statistics (*score statistics*, *functional a
 * `MetaSTAARlite_worker_Gene_Centric_ncRNA_Long_Masks.r` generates and stores variant summary statistics  for some specific long masks, and might require larger memory compared to `MetaSTAARlite_worker_Gene_Centric_ncRNA`. There is 1 job using this script. 
 #### Input: aGDS files and the STAAR null model. For more details, please see the R scripts.
 #### Output: 387 * 2 = 774 Rdata files with the user-defined names for protein-coding genes and 223 * 2 = 446 Rdata files with the user-defined names for ncRNA genes.
-
 Note: For rare variant meta-analysis (e.g. combined MAF < 1%), one can set `cov_maf_cutoff = 0.05` (by default) when generating sparse weighted LD matrices for each study.
 
 ### Step 2.C: Generate variant summary statistics for custom mask using MetaSTAARlite Worker
-#### Script: <a href="MetaSTAARlite_worker_custom_mask.r">**MetaSTAARlite_worker_custom_mask.r**</a>
+#### Script: <a href="MetaSTAARlite_worker_Custom_Mask.r">**MetaSTAARlite_worker_Custom_Mask.r**</a>
 Generate and store variant summary statistics (*score statistics*, *functional annotations* and *sparse weighted LD matrices*) for user-defined custom masks of rare variants using the MetaSTAARlite package. <br>
 #### Input: aGDS files, the STAAR null model, and the custom mask definition file. For more details, please see the R script.
 #### Output: Rdata files with the user-defined names for custom masks.
-
 An example file for a list of custom masks (5-column "CHR-POS-REF-ALT-MaskName" format) in the *LDLR* locus is given in <a href="custom_mask_LDLR.csv">`custom_mask_LDLR.csv`</a>.
 
 Note: For rare variant meta-analysis (e.g. combined MAF < 1%), one can set `cov_maf_cutoff = 0.05` (by default) when generating sparse weighted LD matrices for each study. Users may want to perform parallel computation by splitting the analysis of custom masks into multiple jobs.
@@ -116,7 +111,7 @@ Note: The number of output files is the summation of the column "individual_anal
 Perform gene-centric meta-analysis for coding rare variants using the MetaSTAARlite package. The gene-centric coding meta-analysis provides five functional categories to aggregate coding rare variants of each protein-coding gene: (1) putative loss of function (stop gain, stop loss and splice) RVs, (2) missense RVs, (3) disruptive missense RVs, (4) putative loss of function and disruptive missense RVs, and (5) synonymous RVs. <br>
 * `MetaSTAARlite_Gene_Centric_Coding.r` performs gene-centric coding meta-analysis for all protein-coding genes across the genome. There are 379 jobs using this script. <br>
 * `MetaSTAARlite_Gene_Centric_Coding_Long_Masks.r` performs gene-centric coding meta-analysis for some specific long masks, and might require larger memory compared to `MetaSTAARlite_Gene_Centric_Coding.R`. There are 2 jobs using this script.
-#### Input: aGDS files and variant summary statistics files from Step 2.2 for each participating study. For more details, please see the R scripts.
+#### Input: Variant summary statistics files from Step 2.2 for each participating study. For more details, please see the R scripts.
 #### Output: 381 Rdata files with the user-defined names.
 
 ### Step 4.2: Gene-centric noncoding meta-analysis
@@ -126,8 +121,15 @@ Perform gene-centric meta-analysis for noncoding rare variants using the MetaSTA
 * `MetaSTAARlite_Gene_Centric_Coding_Long_Masks.r` performs gene-centric noncoding meta-analysis for some specific long masks, and might require larger memory compared to `MetaSTAARlite_Gene_Centric_Coding.r`. There are 8 jobs using this script. <br>
 * `MetaSTAARlite_Gene_Centric_ncRNA.r` performs gene-centric noncoding meta-analysis for ncRNA genes across the genome. There are 222 jobs using this script. <br> 
 * `MetaSTAARlite_Gene_Centric_ncRNA_Long_Masks.r` performs gene-centric noncoding meta-analysis for some specific long masks, and might require larger memory compared to `MetaSTAARlite_Gene_Centric_ncRNA`. There is 1 job using this script. 
-#### Input: aGDS files and variant summary statistics files from Step 2.3 for each participating study. For more details, please see the R scripts.
+#### Input: Variant summary statistics files from Step 2.3 for each participating study. For more details, please see the R scripts.
 #### Output: 387 Rdata files with the user-defined names for protein-coding genes and 223 Rdata files with the user-defined names for ncRNA genes.
+
+### Step C: Custom mask meta-analysis
+#### Script: <a href="MetaSTAARlite_Custom_Mask.r">**MetaSTAARlite_Custom_Mask.r**</a>
+Perform meta-analysis for user-defined custom masks of rare variants using the MetaSTAARlite package. <br>
+#### Input: Variant summary statistics files from Step 2.C for each participating study. For more details, please see the R script.
+#### Output: Rdata files with the user-defined names for custom masks.
+Note: Users may want to perform parallel computation by splitting the analysis of custom masks into multiple jobs.
 
 ## Summarization and visualization of association analysis results using MetaSTAARliteSummary
 ### Step 5.0 (Optional): Select independent variants from a known variants list to be used in conditional meta-analysis
