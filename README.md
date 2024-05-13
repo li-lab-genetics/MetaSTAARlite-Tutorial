@@ -41,7 +41,7 @@ The annotations in this file is a subset of `Anno_chrXX.csv`. <br>
 #### Step 3: Generate the annotated GDS (aGDS) file
 ##### Script: <a href="https://github.com/xihaoli/STAARpipeline-Tutorial/tree/main/FAVORannotator_csv/gds2agds.R">**gds2agds.R**</a>
 ##### Input: GDS files and the CSV files of annotated variants list (`Anno_chrXX.csv` or `Anno_chrXX_STAARpipeline.csv`). For more details, please see the R script.
-##### Output: aGDS files including both the genotype and annotation information. 
+##### Output: aGDS files including both the genotype and annotation information.
 Note: FAVORannotator also supports the database in SQL format. Please see the <a href="https://github.com/zhouhufeng/FAVORannotator">**FAVORannotator** tutorial</a> for detailed usage of **FAVORannotator** (SQL version).
 
 ### Generate study-specific sparse Genetic Relatedness Matrix (GRM)
