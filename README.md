@@ -89,7 +89,7 @@ Generate and store variant summary statistics (*score statistics*, *functional a
 #### Output: 387 * 2 = 774 Rdata files with the user-defined names for protein-coding genes and 223 * 2 = 446 Rdata files with the user-defined names for ncRNA genes.
 Note: For rare variant meta-analysis (e.g. combined MAF < 1%), one can set `cov_maf_cutoff = 0.05` (by default) when generating sparse weighted LD matrices for each study.
 
-### Step 2.C: Generate variant summary statistics for custom mask using MetaSTAARlite Worker
+### Step 2.C: Generate variant summary statistics for custom mask analysis using MetaSTAARlite Worker
 #### Script: <a href="MetaSTAARlite_worker_Custom_Mask.r">**MetaSTAARlite_worker_Custom_Mask.r**</a>
 Generate and store variant summary statistics (*score statistics*, *functional annotations*, and *sparse weighted LD matrices*) for user-defined custom masks of rare variants using the MetaSTAARlite package. <br>
 #### Input: aGDS files, the STAAR null model, and the custom mask definition file. For more details, please see the R script.
