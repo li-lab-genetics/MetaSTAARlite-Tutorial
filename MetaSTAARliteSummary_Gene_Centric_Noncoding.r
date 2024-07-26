@@ -37,4 +37,4 @@ Gene_Centric_Noncoding_Results_Summary_meta(gene_centric_noncoding_jobs_num=gene
                                             gene_centric_results_name=gene_centric_results_name,
                                             ncRNA_jobs_num=ncRNA_jobs_num,ncRNA_input_path=ncRNA_input_path,
                                             ncRNA_output_path=ncRNA_output_path,ncRNA_results_name=ncRNA_results_name,
-                                            alpha=alpha,manhattan_plot=TRUE,QQ_plot=TRUE)
+                                            alpha=alpha,ncRNA_pos=ncRNA_pos,manhattan_plot=TRUE,QQ_plot=TRUE)
