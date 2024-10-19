@@ -67,7 +67,7 @@ R package **FastSparseGRM** provides functions and a pipeline to efficiently cal
 Generate and store variant summary statistics (*score statistics*) using MetaSTAARlite Worker.
 #### Input: aGDS files and the STAAR null model. For more details, please see the R script.
 #### Output: 294 Rdata files with the user-defined names.
-Note: The number of output files is the summation of the column "individual_analysis_num" for the object in <a href="jobs_num.csv">`jobs_num.csv`</a>, which is 294.
+Note: The number of output files is the summation of the column "individual_analysis_num" for the object in <a href="jobs_num.csv">`jobs_num.csv`</a> (**please use this file for all studies)**, which is 294.
 
 ### Step 2.2: Generate variant summary statistics for gene-centric coding analysis using MetaSTAARlite Worker
 #### Script: <a href="MetaSTAARlite_worker_Gene_Centric_Coding.r">**MetaSTAARlite_worker_Gene_Centric_Coding.r**</a> and <a href="MetaSTAARlite_worker_Gene_Centric_Coding_Long_Masks.r">**MetaSTAARlite_worker_Gene_Centric_Coding_Long_Masks.r**</a>
